@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <!-- Botón Home -->
+    <a class="navbar-brand" routerLink="/home">Inicio</a>
+
+    <!-- Login/Logout a la derecha -->
+    <div class="d-flex ms-auto">
+      <button *ngIf="!isLoggedIn" class="btn btn-primary me-2" (click)="login()">Login</button>
+      <button *ngIf="isLoggedIn" class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</nav>
