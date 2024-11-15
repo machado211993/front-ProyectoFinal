@@ -1,11 +1,4 @@
 <h2>Bienvenido Usuario</h2>
 
-<ul *ngIf="productos">
-  <li *ngFor="let producto of productos">
-    {{producto.name}}
-    <span class="badge bg-secondary">
-      {{producto.price | currency }}
-    </span>
-
-  </li>
-</ul>
+<h3>Acá tenés una lista de los Productos</h3>
+<app-producto-list></app-producto-list>

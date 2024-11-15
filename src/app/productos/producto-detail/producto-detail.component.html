@@ -1,0 +1,32 @@
+<a class="btn btn-secondary" [routerLink]="['/home']">Volver</a>
+
+<table class="table table" *ngIf="producto">
+  <tbody>
+    <tr>
+      <th>#</th>
+      <td>{{ producto.id }}</td>
+    </tr>
+    <tr>
+      <th>Nombre</th>
+      <td>{{producto.name}}</td>
+    </tr>
+    <tr>
+      <th>Precio</th>
+      <td>{{producto.price | currency}}</td>
+    </tr>
+    <tr>
+      <th>categoryId</th>
+      <td>{{producto.categoryId}}</td>
+    </tr>
+    <tr>
+      <th>Valoración</th>
+      <td>
+        <bar-rating [rate]="producto.score" max="5" readonly="true"></bar-rating>
+      </td>
+    </tr>
+    <tr>
+      <th>Imagen</th>
+      <td>{{ producto.imageUrl }} </td>
+    </tr>
+  </tbody>
+</table>
