@@ -10,6 +10,8 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BarRating } from 'ngx-bar-rating';
+import { ICategoria } from '../../categorias/categoria.model';
+import { CategoriasService } from '../../categorias/categorias.service';
 
 @Component({
   selector: 'app-producto-update',
@@ -20,6 +22,7 @@ import { BarRating } from 'ngx-bar-rating';
 })
 export class ProductoUpdateComponent implements OnInit {
   producto?: IProducto | undefined;
+  categorias: Array<ICategoria> = [];
 
   form: FormGroup = new FormGroup({
     id: new FormControl<number | undefined>(undefined),
@@ -43,11 +46,18 @@ export class ProductoUpdateComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private productoService: ProductosService
+    private productoService: ProductosService,
+    private categoriaService: CategoriasService
   ) {}
 
   ngOnInit(): void {
     const id: string | null = this.route.snapshot.paramMap.get('id');
+
+    this.categoriaService
+      .listar()
+      .subscribe((categorias: Array<ICategoria>) => {
+        this.categorias = categorias;
+      });
 
     if (Number(id) > 0) {
       this.productoService
@@ -61,7 +71,7 @@ export class ProductoUpdateComponent implements OnInit {
             price: producto.price,
             categoryId: producto.categoryId,
             score: producto.score,
-            imageUrl: null,
+            imageUrl: producto.imageUrl,
           });
         });
     }

@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://opulent-yodel-5pv6p56xqh466-5287.app.github.dev",
+    "target": "http://localhost:5287",
     "secure": false,
     "changeOrigin": true,
     "pathRewrite": {
