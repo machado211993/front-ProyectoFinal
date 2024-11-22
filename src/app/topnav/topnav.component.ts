@@ -8,11 +8,17 @@ import {
   faRightToBracket,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CarritoIconComponent } from '../carrito/carrito-icon/carrito-icon.component';
 
 @Component({
   selector: 'app-topnav',
   standalone: true,
-  imports: [CommonModule, RouterModule, FontAwesomeModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FontAwesomeModule,
+    CarritoIconComponent,
+  ],
   templateUrl: './topnav.component.html',
   styleUrl: './topnav.component.css',
 })

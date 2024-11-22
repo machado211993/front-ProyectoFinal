@@ -10,7 +10,7 @@
       <p class="text-end">{{producto.price | currency}}</p>
     </div>
     <div class="card-footer ">
-      <button class="btn btn-primary w-100">
+      <button class="btn btn-primary w-100" (click)="agregarAlCarrito(producto)">
         <fa-icon [icon]="faCartShopping"></fa-icon>
         Agregar al Carrito
       </button>

@@ -31,14 +31,7 @@ export class ProductoSearchComponent implements OnInit {
   }
 
   onSearchTextChange(): void {
-    console.log('searchText', this.searchText);
-
-    const term = this.searchText.toLowerCase();
-    this.filteredProductos = this.productos.filter((producto: IProducto) => {
-      return producto.name.toLowerCase().includes(term);
-    });
-    this.productosEncontrados.emit(this.filteredProductos);
-    console.log('productos encontrados', this.filteredProductos);
+    this.applyFilter();
   }
 
   onCategoriaChange(categoria: ICategoria): void {
@@ -51,8 +44,16 @@ export class ProductoSearchComponent implements OnInit {
     }
     console.log('agrego categoria', categoria, this.filteredCategorias);
 
+    this.applyFilter();
+  }
+
+  applyFilter(): void {
+    const term = this.searchText.toLowerCase();
     this.filteredProductos = this.productos.filter((producto: IProducto) => {
-      return this.filteredCategorias.some((c) => c.id === producto.categoryId);
+      return (
+        this.filteredCategorias.some((c) => c.id === producto.categoryId) &&
+        producto.name.toLowerCase().includes(term)
+      );
     });
 
     this.productosEncontrados.emit(this.filteredProductos);

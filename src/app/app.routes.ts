@@ -5,6 +5,7 @@ import { authGuard } from './auth.guard';
 import { ProductoDetailComponent } from './productos/producto-detail/producto-detail.component';
 import { ProductoUpdateComponent } from './productos/producto-update/producto-update.component';
 import { ProductoListComponent } from './productos/producto-list/producto-list.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,4 +33,5 @@ export const routes: Routes = [
       },
     ],
   },
+  { path: 'carrito', component: CarritoComponent },
 ];
