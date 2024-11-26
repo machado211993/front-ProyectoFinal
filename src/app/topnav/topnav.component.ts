@@ -26,6 +26,7 @@ export class TopnavComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   faSignIn = faRightToBracket;
   faSignOut = faRightFromBracket;
+  isAdmin = false;
 
   private authSubscription!: Subscription;
 
@@ -35,6 +36,7 @@ export class TopnavComponent implements OnInit, OnDestroy {
     this.authSubscription = this.authService.isLoggedIn$.subscribe(
       (loggedIn) => {
         this.isLoggedIn = loggedIn;
+        this.isAdmin = this.authService.isAdmin();
       }
     );
   }

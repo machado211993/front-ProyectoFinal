@@ -6,12 +6,13 @@
 
   <label for="password" class="form-label">Contraseña: </label>
   <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required
-    minlength="6">
+    minlength="5">
 
   <div class="alert alert-danger" role="alert" *ngIf="loginFailed">
     Credenciales incorrectas
   </div>
 
 
-  <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Iniciar sesión</button>
+  <button type="submit" class="btn btn-primary mt-3" [disabled]="!loginForm.valid">Iniciar sesión</button>
+  <p>Todavía no tenés una cuenta? Registrate <a routerLink="/register">acá</a></p>
 </form>

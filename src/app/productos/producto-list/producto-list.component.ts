@@ -14,6 +14,7 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-producto-list',
@@ -32,6 +33,7 @@ export class ProductoListComponent implements OnInit {
   productos?: Array<IProducto>;
   categorias?: Array<ICategoria>;
   filteredProductos: Array<IProducto> = [];
+  isAdmin = false;
 
   faPlus = faPlus;
   faEye = faEye;
@@ -40,12 +42,14 @@ export class ProductoListComponent implements OnInit {
 
   constructor(
     private productoService: ProductosService,
-    private categoriaService: CategoriasService
+    private categoriaService: CategoriasService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     const categorias$ = this.categoriaService.listar();
     const productos$ = this.productoService.listar();
+    this.isAdmin = this.authService.isAdmin();
 
     combineLatest([categorias$, productos$]).subscribe(
       ([categorias, productos]) => {
