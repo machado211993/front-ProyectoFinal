@@ -29,6 +29,14 @@
   <div class="alert alert-info" role="alert">No hay productos en el carrito</div>
 </ng-template>
 
-<button class="btn btn-outline-primary">
+<button class="btn btn-outline-secondary" *ngIf="items.length > 0" (click)="onVaciarCarrito()">
+  <fa-icon [icon]="faTrash"></fa-icon>
+  Vaciar carrito
+</button>
+
+<button class="btn btn-outline-primary" (click)="onPagar()">
   <fa-icon [icon]="faCreditCard"></fa-icon>
   Ir a Pagar</button>
+
+<div id="walletBrick_container">
+</div>

@@ -20,6 +20,7 @@
     "@angular/router": "^18.2.0",
     "@fortawesome/angular-fontawesome": "~0.15.0",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@mercadopago/sdk-js": "^0.0.3",
     "bootstrap": "^5.3.3",
     "ngx-bar-rating": "^7.0.1",
     "rxjs": "~7.8.0",

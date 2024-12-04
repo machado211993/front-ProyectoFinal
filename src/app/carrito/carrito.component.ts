@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
+import { faCreditCard, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ICarritoItem } from './carrito-item.model';
 import { CarritoService } from './carrito.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
+import { loadMercadoPago } from '@mercadopago/sdk-js';
+
+declare global {
+  interface Window {
+    MercadoPago: any;
+  }
+}
 
 @Component({
   selector: 'app-carrito',
@@ -14,6 +21,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 })
 export class CarritoComponent implements OnInit {
   faCreditCard = faCreditCard;
+  faTrash = faTrash;
 
   items: ICarritoItem[] = [];
 
@@ -27,5 +35,27 @@ export class CarritoComponent implements OnInit {
 
   getTotal(): number {
     return this.carritoService.getTotal();
+  }
+
+  onVaciarCarrito(): void {
+    // TODO: Implementar
+  }
+
+  onPagar(): void {
+    console.log('loading MercadoPago');
+    loadMercadoPago().then(() => {
+      console.log('MercadoPago loaded');
+      const mp = new window.MercadoPago(
+        'TEST-59212af4-991c-49a3-800a-10778cc66d80',
+        {
+          locale: 'es-AR',
+        }
+      );
+      mp.bricks().create('wallet', 'walletBrick_container', {
+        initialization: {
+          preferenceId: '123456', // devuelto por la API de MercadoPago,
+        },
+      });
+    });
   }
 }

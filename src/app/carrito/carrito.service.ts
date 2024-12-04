@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { ICarritoItem } from './carrito-item.model';
 import { IProducto } from '../productos/producto.model';
 import { BehaviorSubject } from 'rxjs';
@@ -23,6 +23,9 @@ export class CarritoService {
     if (existe) {
       // Si el producto no existe, lo agregamos al carrito
       existe.cantidad = cant;
+
+      // Si cantidad es 0, eliminamos el producto del carrito
+      // TODO: Implementar
     } else {
       // si el producto existe en el carrito, actualizo la cantidad
       this.items.push({ producto: prod, cantidad: cant });
@@ -31,7 +34,7 @@ export class CarritoService {
   }
 
   eliminarProducto(producto: IProducto) {
-    this.items.filter((item) => item.producto.id !== producto.id);
+    this.items = this.items.filter((item) => item.producto.id !== producto.id);
     this.itemsSubject.next(this.items);
   }
 

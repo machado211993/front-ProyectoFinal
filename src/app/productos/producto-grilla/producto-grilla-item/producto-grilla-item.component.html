@@ -10,10 +10,20 @@
       <p class="text-end">{{producto.price | currency}}</p>
     </div>
     <div class="card-footer ">
-      <button class="btn btn-primary w-100" (click)="agregarAlCarrito(producto)">
+      <button class="btn btn-primary w-100" (click)="agregarAlCarrito(producto)"
+        *ngIf="!estoyEnCarrito; else mostrarEstoyEnCarrito">
         <fa-icon [icon]="faCartShopping"></fa-icon>
         Agregar al Carrito
       </button>
+      <ng-template #mostrarEstoyEnCarrito>
+        <button class="btn btn-success w-80" disabled>
+          Hay {{ cantidad }} en el carrito
+        </button>
+        <button class="btn btn-danger w-20" (click)="quitarDelCarrito(producto)">
+          <fa-icon [icon]="faTrash"></fa-icon>
+          Quitar del Carrito
+        </button>
+      </ng-template>
     </div>
   </div>
 </div>
