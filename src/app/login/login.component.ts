@@ -30,3 +30,4 @@ export class LoginComponent {
       });
   }
 }
+/*verifica las credenciales para ver si cumplen con las condiciones*/ 

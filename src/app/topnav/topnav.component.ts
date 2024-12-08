@@ -32,7 +32,8 @@ export class TopnavComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
+  
+  ngOnInit(): void {  /*ciclo de vida componente*/
     this.authSubscription = this.authService.isLoggedIn$.subscribe(
       (loggedIn) => {
         this.isLoggedIn = loggedIn;
@@ -41,15 +42,15 @@ export class TopnavComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { /*ciclo de vida componente*/
     this.authSubscription.unsubscribe();
   }
 
-  login(): void {
+  login(): void {  /*login*/ 
     this.router.navigate(['/login']);
-  }
+  } 
 
-  logout(): void {
+  logout(): void {  /*cerrar sesión*/ 
     this.authService.logout();
     this.router.navigate(['/login']);
   }

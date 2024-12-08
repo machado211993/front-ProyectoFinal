@@ -12,3 +12,5 @@ import { TopnavComponent } from './topnav/topnav.component';
 export class AppComponent {
   title = 'integracion-dotnet-angular';
 }
+
+/*ts que llama el dom de la app*/

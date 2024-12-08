@@ -1,0 +1,19 @@
+<!--commit nuevo-->
+<div class="container">
+    <h2>{{ esEdicion ? 'Editar Categoría' : 'Nueva Categoría' }}</h2>
+    <form (ngSubmit)="guardar()">
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input
+          id="name"
+          class="form-control"
+          [(ngModel)]="categoria.name"
+          name="name"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-success mt-3">Guardar</button>
+      <button type="button" class="btn btn-secondary mt-3" routerLink="/categorias">Cancelar</button>
+    </form>
+  </div>
+  

@@ -9,3 +9,4 @@ import { RouterModule } from '@angular/router';
   styleUrl: './unauthorized.component.css',
 })
 export class UnauthorizedComponent {}
+/*no hace nada*/

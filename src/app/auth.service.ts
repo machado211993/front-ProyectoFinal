@@ -5,8 +5,10 @@ import { Roles, RolesId } from './authorities-constants';
 import { Router } from '@angular/router';
 import { IUser } from './user.model';
 
+/*servicio de autenticacion*/
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root', //en toda la aplicacion
 })
 export class AuthService {
   private readonly TOKEN_KEY = 'token';
@@ -22,7 +24,7 @@ export class AuthService {
 
   login(username: string, password: string): Observable<boolean> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body: IUser = { username, password };
+    const body: IUser = { username, password }; /*se le pasa el usuario y contraseña*/ 
 
     return this.http
       .post<{ token: string }>(`${this.apiUrl}/Login/login`, body, { headers })
@@ -46,7 +48,8 @@ export class AuthService {
     localStorage.removeItem(this.ROLE_KEY);
     this.isLoggedInSubject.next(false);
   }
-
+  
+  /*para registrar usuarios*/ 
   register(username: string, password: string): Observable<boolean> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body: IUser = { username, password, roleId: RolesId.USER };

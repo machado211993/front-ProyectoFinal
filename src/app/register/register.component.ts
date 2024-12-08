@@ -55,3 +55,4 @@ export class RegisterComponent {
       });
   }
 }
+/*para registro de usuarios nomas*/

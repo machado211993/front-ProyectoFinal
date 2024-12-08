@@ -10,12 +10,16 @@ import { RegisterComponent } from './register/register.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { adminGuard } from './admin.guard';
+import { ListarCategoriasComponent } from './categorias/listar-categorias/listar-categorias.component';
+import { EditarCategoriaComponent } from './categorias/editar-categoria/editar-categoria.component';
 
 export const routes: Routes = [
+
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+
   {
     path: 'productos',
     canActivate: [authGuard],
@@ -45,4 +49,13 @@ export const routes: Routes = [
     canActivate: [adminGuard],
   },
   { path: 'unauthorized', component: UnauthorizedComponent },
+
+   /*aca tengo que hacer la ruta de catergorias*/
+
+   
+    { path: 'categorias', component: ListarCategoriasComponent },
+    { path: 'categorias/nueva', component: EditarCategoriaComponent },
+    { path: 'categorias/editar/:id', component: EditarCategoriaComponent },
+  
+
 ];
