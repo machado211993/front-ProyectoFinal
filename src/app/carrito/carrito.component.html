@@ -20,23 +20,37 @@
   <tfoot>
     <tr>
       <th>Total</th>
-      <th colspan="2">{{ items.length}} items</th>
+      <th colspan="2">{{ items.length }} items</th>
       <th>{{ getTotal() | currency }}</th>
     </tr>
+  </tfoot>
 </table>
 
 <ng-template #carritoVacio>
-  <div class="alert alert-info" role="alert">No hay productos en el carrito</div>
+  <div class="alert alert-info" role="alert">
+    No hay productos en el carrito
+  </div>
 </ng-template>
 
-<button class="btn btn-outline-secondary" *ngIf="items.length > 0" (click)="onVaciarCarrito()">
+<button
+  class="btn btn-outline-secondary"
+  *ngIf="items.length > 0"
+  (click)="onVaciarCarrito()"
+>
   <fa-icon [icon]="faTrash"></fa-icon>
   Vaciar carrito
 </button>
 
-<button class="btn btn-outline-primary" (click)="onPagar()">
+<button
+  class="btn btn-outline-primary"
+  *ngIf="items.length > 0"
+  (click)="onPagar()"
+>
   <fa-icon [icon]="faCreditCard"></fa-icon>
-  Ir a Pagar</button>
+  Ir a Pagar
+</button>
 
-<div id="walletBrick_container">
-</div>
+<!-- Componente de Finalización de Compra (Solo si hay productos) -->
+<app-finalizar-compra-component
+  *ngIf="items.length > 0"
+></app-finalizar-compra-component>

@@ -1,0 +1,33 @@
+<div class="finalizar-compra">
+  <h2>Resumen de la compra</h2>
+
+  <!-- Mostrar mensaje si el carrito está vacío -->
+  <div *ngIf="carritoService.items.length === 0" class="alert alert-warning">
+    Tu carrito está vacío. Agrega productos para continuar con la compra.
+  </div>
+
+  <!-- Lista de productos del carrito -->
+  <ul>
+    <li *ngFor="let item of carritoService.items">
+      {{ item.producto.name }} - Cantidad: {{ item.cantidad }} - Precio: ${{
+        item.producto.price
+      }}
+      - Total por producto: ${{ item.producto.price * item.cantidad }}
+    </li>
+  </ul>
+
+  <h3>Total: ${{ carritoService.getTotal() }}</h3>
+
+  <!-- Mostrar mensaje de compra exitosa -->
+  <div *ngIf="compraExitosa" class="alert alert-success">
+    ¡Compra realizada exitosamente!
+  </div>
+
+  <!-- Botón de finalizar compra, deshabilitado si el carrito está vacío -->
+  <button
+    (click)="finalizarCompra()"
+    [disabled]="carritoService.items.length === 0"
+  >
+    Finalizar Compra
+  </button>
+</div>

@@ -8,13 +8,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CarritoService {
   // Almacen interno de los productos que los usuarios agregan al carrito de compras
-  private items: ICarritoItem[] = [];
+  public items: ICarritoItem[] = [];
 
   private itemsSubject = new BehaviorSubject<ICarritoItem[]>(this.items);
 
   public items$ = this.itemsSubject.asObservable();
 
-  constructor() {}
+  constructor() { }
 
   agregarProducto(prod: IProducto, cant: number = 1) {
     console.log('agregarProducto', prod, cant);

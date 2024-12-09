@@ -12,6 +12,8 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { adminGuard } from './admin.guard';
 import { ListarCategoriasComponent } from './categorias/listar-categorias/listar-categorias.component';
 import { EditarCategoriaComponent } from './categorias/editar-categoria/editar-categoria.component';
+import { FinalizarCompraComponentComponent } from './finalizar-compra-component/finalizar-compra-component.component';
+// Importar el componente de finalizar compra
 
 export const routes: Routes = [
 
@@ -43,6 +45,10 @@ export const routes: Routes = [
     ],
   },
   { path: 'carrito', component: CarritoComponent },
+
+  // Ruta para finalizar la compra
+  { path: 'finalizar-compra', component: FinalizarCompraComponentComponent, canActivate: [authGuard] },
+
   {
     path: 'admin',
     component: AdminDashboardComponent,
@@ -50,12 +56,8 @@ export const routes: Routes = [
   },
   { path: 'unauthorized', component: UnauthorizedComponent },
 
-   /*aca tengo que hacer la ruta de catergorias*/
-
-   
-    { path: 'categorias', component: ListarCategoriasComponent },
-    { path: 'categorias/nueva', component: EditarCategoriaComponent },
-    { path: 'categorias/editar/:id', component: EditarCategoriaComponent },
-  
-
+  /* Rutas de categorías */
+  { path: 'categorias', component: ListarCategoriasComponent },
+  { path: 'categorias/nueva', component: EditarCategoriaComponent },
+  { path: 'categorias/editar/:id', component: EditarCategoriaComponent },
 ];
