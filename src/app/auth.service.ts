@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Roles, RolesId } from './authorities-constants';
 import { Router } from '@angular/router';
 import { IUser } from './user.model';
@@ -20,36 +20,46 @@ export class AuthService {
   public isLoggedIn$: Observable<boolean> =
     this.isLoggedInSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<boolean> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body: IUser = { username, password }; /*se le pasa el usuario y contraseña*/ 
+    const body: IUser = { username, password }; // Usuario y contraseña
 
     return this.http
       .post<{ token: string }>(`${this.apiUrl}/Login/login`, body, { headers })
       .pipe(
+        // Usar tap para guardar el token de la respuesta
         tap((response) => {
-          localStorage.setItem(this.TOKEN_KEY, response.token);
-          this.isLoggedInSubject.next(true);
-
-          // llamar a la api de profile y guardar el role en el local storage
-          this.profile().subscribe((res) => {
-            localStorage.setItem(this.ROLE_KEY, res.role!);
-          });
+          localStorage.setItem(this.TOKEN_KEY, response.token); // Guardamos el token en localStorage
         }),
-        map(() => true),
-        catchError(() => of(false))
+        // Llamar a la API de perfil y guardar el rol después de obtener el token
+        switchMap(() => this.profile()), // Usamos switchMap para realizar la llamada a profile después de obtener el token
+        tap((res) => {
+          if (res.role) {
+            localStorage.setItem(this.ROLE_KEY, res.role); // Guardamos el rol en localStorage
+          }
+        }),
+        // Al final de todo, indicamos que el login fue exitoso y emitimos el valor de loggedIn
+        map(() => {
+          this.isLoggedInSubject.next(true); // Emitimos que el usuario está logueado
+          return true; // El login fue exitoso
+        }),
+        catchError(() => {
+          this.isLoggedInSubject.next(false); // Si hubo error, emitimos false
+          return of(false); // Retornamos false en caso de error
+        })
       );
   }
+
 
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.ROLE_KEY);
     this.isLoggedInSubject.next(false);
   }
-  
-  /*para registrar usuarios*/ 
+
+  /*para registrar usuarios*/
   register(username: string, password: string): Observable<boolean> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body: IUser = { username, password, roleId: RolesId.USER };

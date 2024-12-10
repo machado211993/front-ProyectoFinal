@@ -1,2 +1,13 @@
-<p>admin-dashboard works!</p>
-//html de panel admin
+<div *ngIf="isAdmin">
+  <h1>Bienvenido al Panel de Administración</h1>
+  <div class="admin-options">
+    <button routerLink="/admin/gestionar-productos">Gestionar Productos</button>
+    <button routerLink="/admin/gestionar-usuarios">Gestionar Usuarios</button>
+    <button routerLink="/admin/reportes">Ver Reportes</button>
+    <button routerLink="/admin/configuracion">Configuración</button>
+  </div>
+</div>
+
+<div *ngIf="!isAdmin">
+  <p>No tienes acceso a esta página. Redirigiendo...</p>
+</div>

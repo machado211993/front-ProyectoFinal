@@ -30,27 +30,29 @@ export class TopnavComponent implements OnInit, OnDestroy {
 
   private authSubscription!: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
-  
-  ngOnInit(): void {  /*ciclo de vida componente*/
+
+  ngOnInit(): void {
+    // Asegúrate de que authService.isLoggedIn$ emite cambios correctamente
     this.authSubscription = this.authService.isLoggedIn$.subscribe(
       (loggedIn) => {
         this.isLoggedIn = loggedIn;
-        this.isAdmin = this.authService.isAdmin();
+        this.isAdmin = this.authService.isAdmin();  // Asegúrate de que el rol se obtiene de manera actualizada
       }
     );
   }
+
 
   ngOnDestroy(): void { /*ciclo de vida componente*/
     this.authSubscription.unsubscribe();
   }
 
-  login(): void {  /*login*/ 
+  login(): void {  /*login*/
     this.router.navigate(['/login']);
-  } 
+  }
 
-  logout(): void {  /*cerrar sesión*/ 
+  logout(): void {  /*cerrar sesión*/
     this.authService.logout();
     this.router.navigate(['/login']);
   }

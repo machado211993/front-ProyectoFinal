@@ -1,14 +1,21 @@
-<h1>Listado de Productos
+<h1>
+  Listado de Productos
 
-  <a class="btn btn-success btn-sm float-end" [routerLink]="['/productos', 'new']" [class.disabled]="!isAdmin">
+  <a
+    class="btn btn-success btn-sm float-end"
+    [routerLink]="['/productos', 'new']"
+    [class.disabled]="!isAdmin"
+  >
     <fa-icon [icon]="faPlus"></fa-icon>
     <span class="d-none d-md-inline"> Nuevo Producto</span>
   </a>
-
 </h1>
 
-<app-producto-search [productos]="productos" (productosEncontrados)="aplicarFiltroProductos($event)"
-  *ngIf="productos"></app-producto-search>
+<app-producto-search
+  [productos]="productos"
+  (productosEncontrados)="aplicarFiltroProductos($event)"
+  *ngIf="productos"
+></app-producto-search>
 
 <table class="table table-striped">
   <thead>
@@ -22,29 +29,41 @@
   </thead>
   <tbody>
     <tr *ngFor="let producto of filteredProductos">
-      <td>{{producto.id}}</td>
-      <td>{{producto.name}}</td>
+      <td>{{ producto.id }}</td>
+      <td>{{ producto.name }}</td>
       <td>
-        <span class="badge bg-secondary ">
-          {{ getNombreCategoria(producto.categoryId)}}
+        <span class="badge bg-secondary">
+          {{ getNombreCategoria(producto.categoryId) }}
         </span>
       </td>
-      <td class="text-end">{{producto.price | currency}}</td>
+      <td class="text-end">{{ producto.price | currency }}</td>
       <td class="text-end">
         <div class="btn-group" role="group">
-          <a class="btn btn-info btn-sm" [routerLink]="['/productos', producto.id, 'detail']">
+          <a
+            class="btn btn-info btn-sm"
+            [routerLink]="['/productos', producto.id, 'detail']"
+          >
             <fa-icon [icon]="faEye"></fa-icon>
             <span class="d-none d-md-inline"> Ver</span>
           </a>
-          <a class="btn btn-primary btn-sm" [routerLink]="['/productos', producto.id, 'edit']">
+          <a
+            class="btn btn-primary btn-sm"
+            [routerLink]="['/productos', producto.id, 'edit']"
+            *ngIf="isAdmin"
+          >
             <fa-icon [icon]="faPencil"></fa-icon>
             <span class="d-none d-md-inline"> Editar</span>
           </a>
-          <button class="btn btn-danger btn-sm" (click)="onDelete(producto)" *ngIf="isAdmin">
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="onDelete(producto)"
+            *ngIf="isAdmin"
+          >
             <fa-icon [icon]="faTrash"></fa-icon>
             <span class="d-none d-md-inline"> Eliminar</span>
           </button>
         </div>
       </td>
+    </tr>
   </tbody>
 </table>

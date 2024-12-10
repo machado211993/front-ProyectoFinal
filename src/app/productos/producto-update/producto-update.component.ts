@@ -48,7 +48,7 @@ export class ProductoUpdateComponent implements OnInit {
     private router: Router,
     private productoService: ProductosService,
     private categoriaService: CategoriasService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const id: string | null = this.route.snapshot.paramMap.get('id');
