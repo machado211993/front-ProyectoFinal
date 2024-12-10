@@ -9,7 +9,7 @@ import { IProducto } from './producto.model';
 export class ProductosService {
   private readonly apiUrl = '/api';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   listar(): Observable<Array<IProducto>> {
     return this.httpClient.get<Array<IProducto>>(`${this.apiUrl}/Products`);
