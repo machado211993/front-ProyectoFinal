@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
@@ -24,7 +24,4 @@ export class AdminDashboardComponent {
       this.router.navigate(['/']);
     }
   }
-
-
-
 }

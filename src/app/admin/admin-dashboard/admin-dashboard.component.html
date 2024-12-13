@@ -1,10 +1,26 @@
-<div *ngIf="isAdmin">
-  <h1>Bienvenido al Panel de Administración</h1>
-  <div class="admin-options">
-    <button routerLink="/admin/gestionar-productos">Gestionar Productos</button>
-    <button routerLink="/admin/gestionar-usuarios">Gestionar Usuarios</button>
-    <button routerLink="/admin/reportes">Ver Reportes</button>
-    <button routerLink="/admin/configuracion">Configuración</button>
+<div
+  *ngIf="isAdmin"
+  class="d-flex justify-content-center align-items-center min-vh-100"
+>
+  <div class="admin-panel text-center">
+    <h3>Bienvenido al Panel de Administración</h3>
+    <div class="admin-options">
+      <button routerLink="/productos/new" class="btn btn-primary">
+        Crear Nuevo Producto
+      </button>
+      <button routerLink="/categorias/nueva" class="btn btn-primary">
+        Crear Nueva Categoria
+      </button>
+      <button routerLink="/ventas" class="btn btn-primary">
+        Ver Reportes de Ventas
+      </button>
+      <button routerLink="/productos" class="btn btn-primary">
+        Gestionar Productos
+      </button>
+      <button routerLink="/categorias" class="btn btn-primary">
+        Gestionar Categorias
+      </button>
+    </div>
   </div>
 </div>
 

@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { BarRating } from 'ngx-bar-rating';
 import { ICategoria } from '../../categorias/categoria.model';
 import { CategoriasService } from '../../categorias/categorias.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-producto-update',
@@ -43,14 +44,17 @@ export class ProductoUpdateComponent implements OnInit {
     imageUrl: new FormControl(''),
   });
 
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private productoService: ProductosService,
-    private categoriaService: CategoriasService
+    private categoriaService: CategoriasService,
+
   ) { }
 
   ngOnInit(): void {
+
     const id: string | null = this.route.snapshot.paramMap.get('id');
 
     this.categoriaService
@@ -107,4 +111,5 @@ export class ProductoUpdateComponent implements OnInit {
       }
     }
   }
+
 }

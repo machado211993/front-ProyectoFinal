@@ -39,7 +39,7 @@ export class FinalizarCompraComponentComponent {
     this.finalizarCompraService.realizarCompra(venta).subscribe({
 
       next: () => {
-        alert("Venta realizada con éxito");
+        alert("Hemos registrado tu venta con el ID xxxx y te contactaremos a la brevedad. Podrás utilizar este código para realizar el seguimiento de tu compra.");
         this.carritoService.vaciarCarrito();
       },
       error: (err) => {

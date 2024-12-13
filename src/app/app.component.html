@@ -1,7 +1,29 @@
-<!-- dentro del top nav tengo q configurar categorias-->
-<app-topnav></app-topnav>
+<!-- Top Navigation Bar -->
+<header>
+  <app-topnav></app-topnav>
+</header>
 
-
-<div class="container-fluid">
+<!-- Main Content Area -->
+<main
+  class="container-fluid py-4"
+  style="min-height: 100vh; display: flex; flex-direction: column"
+>
+  <!-- Dynamic routing for components -->
   <router-outlet></router-outlet>
-</div>
+
+  <!-- Footer -->
+  <footer class="text-center py-3 mt-auto bg-light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-4 mb-3">
+          <h5>Sobre el autor</h5>
+          <p>© 2024 Alumno José Manuel Machado</p>
+          <p>
+            Desarrollador Full Stack | Experto en Java, Spring Boot, Angular y
+            más
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</main>

@@ -1,73 +1,132 @@
-<a class="btn btn-secondary" [routerLink]="['/home']">Volver</a>
+<div class="container py-5">
+  <div class="card shadow-lg mx-auto" style="max-width: 600px">
+    <div class="card-body">
+      <a class="btn btn-secondary mb-4" [routerLink]="['/home']">
+        <i class="fas fa-arrow-left"></i> Volver
+      </a>
+      <h3 class="card-title text-center mb-4">Formulario de Producto</h3>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="name">Nombre</label>
-    <input type="text" class="form-control" id="name" formControlName="name" />
-    <div
-      class="alert alert-danger"
-      *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
-    >
-      El nombre es requerido
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Nombre -->
+        <div class="form-group mb-3">
+          <label for="name">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+            [class.is-invalid]="
+              form.get('name')?.invalid && form.get('name')?.touched
+            "
+            [class.is-valid]="
+              form.get('name')?.valid && form.get('name')?.touched
+            "
+            placeholder="Ingrese el nombre del producto"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+          >
+            El nombre es requerido.
+          </div>
+          <div
+            class="valid-feedback"
+            *ngIf="form.get('name')?.valid && form.get('name')?.touched"
+          >
+            Campo válido.
+          </div>
+        </div>
+
+        <!-- Precio -->
+        <div class="form-group mb-3">
+          <label for="price">Precio</label>
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            formControlName="price"
+            [class.is-invalid]="
+              form.get('price')?.invalid && form.get('price')?.touched
+            "
+            [class.is-valid]="
+              form.get('price')?.valid && form.get('price')?.touched
+            "
+            placeholder="Ingrese el precio del producto"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="form.get('price')?.invalid && form.get('price')?.touched"
+          >
+            El precio es requerido.
+          </div>
+          <div
+            class="valid-feedback"
+            *ngIf="form.get('price')?.valid && form.get('price')?.touched"
+          >
+            Campo válido.
+          </div>
+        </div>
+
+        <!-- Categoría -->
+        <div class="form-group mb-3">
+          <label for="categoryId">Categoría</label>
+          <select
+            class="form-control"
+            id="categoryId"
+            formControlName="categoryId"
+          >
+            <option value="">Seleccione una categoría</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria.id">
+              {{ categoria.name }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Valoración -->
+        <div class="form-group mb-3">
+          <label for="score">Valoración</label>
+          <bar-rating
+            formControlName="score"
+            [rate]="form.get('score')?.value"
+            max="5"
+          ></bar-rating>
+        </div>
+
+        <!-- URL de la imagen -->
+        <div class="form-group mb-3">
+          <label for="imageUrl">URL de la imagen</label>
+          <input
+            type="text"
+            class="form-control"
+            id="imageUrl"
+            formControlName="imageUrl"
+            placeholder="Ingrese la URL de la imagen"
+          />
+          <div class="text-center mt-3">
+            <img
+              [src]="form.get('imageUrl')?.value"
+              class="img-fluid rounded"
+              alt="Imagen del producto"
+              *ngIf="form.get('imageUrl')?.value; else sinImagen"
+              style="max-height: 200px"
+            />
+            <ng-template #sinImagen>
+              <div class="alert alert-info">No hay imagen disponible.</div>
+            </ng-template>
+          </div>
+        </div>
+
+        <!-- Botón de envío -->
+        <div class="text-center">
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            [disabled]="form.invalid"
+          >
+            <i class="fas fa-save"></i> Guardar
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-
-  <div class="form-group">
-    <label for="price">Precio</label>
-    <input
-      type="number"
-      class="form-control"
-      id="price"
-      formControlName="price"
-    />
-    <div
-      class="alert alert-danger"
-      *ngIf="form.get('price')?.invalid && form.get('price')?.touched"
-    >
-      El precio es requerido
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="categoryId">Categoría</label>
-    <select class="form-control" id="categoryId" formControlName="categoryId">
-      <option value="">Seleccione una categoría</option>
-      <option *ngFor="let categoria of categorias" [value]="categoria.id">
-        {{ categoria.name }}
-      </option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="score">Valoración</label>
-    <bar-rating
-      formControlName="score"
-      [rate]="form.get('score')?.value"
-      max="5"
-    ></bar-rating>
-  </div>
-
-  <div class="form-group">
-    <label for="imageUrl">URL de la imagen</label>
-    <input
-      type="text"
-      class="form-control"
-      id="imageUrl"
-      formControlName="imageUrl"
-    />
-    <img
-      [src]="form.get('imageUrl')?.value"
-      class="img-fluid"
-      alt="Responsive image"
-      *ngIf="form.get('imageUrl')?.value; else sinImagen"
-    />
-    <ng-template #sinImagen>
-      <div class="alert alert-info">No hay imagen</div>
-    </ng-template>
-  </div>
-
-  <br />
-  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-    Guardar
-  </button>
-</form>
+</div>

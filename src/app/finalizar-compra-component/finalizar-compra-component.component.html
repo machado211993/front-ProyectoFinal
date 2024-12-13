@@ -1,33 +1,44 @@
-<div class="finalizar-compra">
-  <h2>Resumen de la compra</h2>
+<div class="finalizar-compra container mt-5">
+  <h2 class="text-center mb-4">Resumen de la compra</h2>
 
   <!-- Mostrar mensaje si el carrito está vacío -->
-  <div *ngIf="carritoService.items.length === 0" class="alert alert-warning">
+  <div
+    *ngIf="carritoService.items.length === 0"
+    class="alert alert-warning text-center"
+  >
     Tu carrito está vacío. Agrega productos para continuar con la compra.
   </div>
 
   <!-- Lista de productos del carrito -->
-  <ul>
-    <li *ngFor="let item of carritoService.items">
-      {{ item.producto.name }} - Cantidad: {{ item.cantidad }} - Precio: ${{
-        item.producto.price
-      }}
-      - Total por producto: ${{ item.producto.price * item.cantidad }}
-    </li>
-  </ul>
+  <div *ngIf="carritoService.items.length > 0">
+    <ul class="list-group mb-4">
+      <li
+        *ngFor="let item of carritoService.items"
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        <span>{{ item.producto.name }} - Cantidad: {{ item.cantidad }}</span>
+        <span class="badge bg-info"
+          >${{ item.producto.price * item.cantidad }}</span
+        >
+      </li>
+    </ul>
 
-  <h3>Total: ${{ carritoService.getTotal() }}</h3>
+    <h3 class="text-end">Total: ${{ carritoService.getTotal() }}</h3>
+  </div>
 
-  <!-- Mostrar mensaje de compra exitosa-->
-  <div *ngIf="compraExitosa" class="alert alert-success">
+  <!-- Mostrar mensaje de compra exitosa -->
+  <div *ngIf="compraExitosa" class="alert alert-success text-center">
     ¡Compra realizada exitosamente!
   </div>
 
   <!-- Botón de finalizar compra, deshabilitado si el carrito está vacío -->
-  <button
-    (click)="finalizarCompra()"
-    [disabled]="carritoService.items.length === 0"
-  >
-    Finalizar Compra
-  </button>
+  <div class="text-center">
+    <button
+      (click)="finalizarCompra()"
+      class="btn btn-success"
+      [disabled]="carritoService.items.length === 0"
+    >
+      Finalizar Compra
+    </button>
+  </div>
 </div>

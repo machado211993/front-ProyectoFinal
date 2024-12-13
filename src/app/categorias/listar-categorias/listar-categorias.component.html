@@ -1,5 +1,7 @@
 <div class="container">
   <h2>Categorías</h2>
+
+  <!-- Botón para crear una nueva categoría, visible solo si el usuario es admin -->
   <button
     class="btn btn-primary mb-3"
     *ngIf="isAdmin"
@@ -7,7 +9,9 @@
   >
     Nueva Categoría
   </button>
-  <table class="table table-striped">
+
+  <!-- Tabla de categorías con mejor estilo -->
+  <table class="table table-striped table-bordered">
     <thead>
       <tr>
         <th>ID</th>
@@ -20,6 +24,7 @@
         <td>{{ categoria.id }}</td>
         <td>{{ categoria.name }}</td>
         <td>
+          <!-- Botón Editar, visible solo si el usuario es admin -->
           <button
             class="btn btn-warning btn-sm"
             *ngIf="isAdmin"
@@ -27,6 +32,8 @@
           >
             Editar
           </button>
+
+          <!-- Botón Eliminar, visible solo si el usuario es admin -->
           <button
             class="btn btn-danger btn-sm"
             *ngIf="isAdmin"

@@ -13,6 +13,7 @@ import { adminGuard } from './admin.guard';
 import { ListarCategoriasComponent } from './categorias/listar-categorias/listar-categorias.component';
 import { EditarCategoriaComponent } from './categorias/editar-categoria/editar-categoria.component';
 import { FinalizarCompraComponentComponent } from './finalizar-compra-component/finalizar-compra-component.component';
+import { VentasComponent } from './ventas/ventas.component';
 // Importar el componente de finalizar compra
 
 export const routes: Routes = [
@@ -24,7 +25,7 @@ export const routes: Routes = [
 
   {
     path: 'productos',
-    canActivate: [authGuard],
+
     children: [
       {
         path: '',
@@ -60,4 +61,8 @@ export const routes: Routes = [
   { path: 'categorias', component: ListarCategoriasComponent },
   { path: 'categorias/nueva', component: EditarCategoriaComponent },
   { path: 'categorias/editar/:id', component: EditarCategoriaComponent },
+
+  /* Rutas de ventas */
+  { path: 'ventas', component: VentasComponent },
+
 ];

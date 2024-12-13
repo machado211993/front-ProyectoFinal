@@ -1,4 +1,4 @@
-import { Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ICarritoItem } from './carrito-item.model';
 import { IProducto } from '../productos/producto.model';
 import { BehaviorSubject } from 'rxjs';
@@ -18,16 +18,22 @@ export class CarritoService {
 
   agregarProducto(prod: IProducto, cant: number = 1) {
     console.log('agregarProducto', prod, cant);
+
+    // Verificamos si el producto ya existe en el carrito
     const existe = this.items.find((item) => item.producto.id === prod.id);
 
     if (existe) {
-      // Si el producto no existe, lo agregamos al carrito
-      existe.cantidad = cant;
+      // Si el producto ya existe, actualizamos su cantidad
+      existe.cantidad += cant;
 
-      // Si cantidad es 0, eliminamos el producto del carrito
-      // TODO: Implementar
-    } else {
-      // si el producto existe en el carrito, actualizo la cantidad
+      // Si la cantidad resulta en 0 o menos, eliminamos el producto
+      if (existe.cantidad <= 0) {
+        this.eliminarProducto(prod);
+      } else {
+        this.itemsSubject.next(this.items);
+      }
+    } else if (cant > 0) {
+      // Si no existe y la cantidad es positiva, lo agregamos al carrito
       this.items.push({ producto: prod, cantidad: cant });
       this.itemsSubject.next(this.items);
     }

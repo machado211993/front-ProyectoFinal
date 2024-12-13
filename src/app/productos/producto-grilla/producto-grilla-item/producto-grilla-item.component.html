@@ -1,29 +1,95 @@
 <div class="col">
   <div class="card h-100">
-    <img [attr.src]="producto.imageUrl" class="card-img-top producto-img" alt="..."
-      *ngIf="producto.imageUrl; else productoSinImagen">
+    <!-- Imagen del producto -->
+    <img
+      [attr.src]="producto.imageUrl"
+      class="card-img-top producto-img"
+      alt="Imagen del producto"
+      data-bs-toggle="modal"
+      data-bs-target="#zoomModal"
+      (click)="abrirModal(producto.imageUrl)"
+      *ngIf="producto.imageUrl; else productoSinImagen"
+    />
     <ng-template #productoSinImagen>
-      <img src="assets/images/sin-foto.jpg" class="card-img-top producto-img" alt="...">
+      <img
+        src="assets/images/sin-foto.jpg"
+        class="card-img-top producto-img"
+        alt="Imagen no disponible"
+        data-bs-toggle="modal"
+        data-bs-target="#zoomModal"
+        (click)="abrirModal('assets/images/sin-foto.jpg')"
+      />
     </ng-template>
-    <div class="card-body">
-      <h5 class="card-title">{{ producto.name }}</h5>
-      <p class="text-end">{{producto.price | currency}}</p>
+
+    <!-- Cuerpo de la tarjeta -->
+    <div class="card-body text-center">
+      <h5 class="card-title" style="font-size: 1.25rem; font-weight: 600">
+        {{ producto.name }}
+      </h5>
+      <p class="card-text" style="font-size: 1.125rem; font-weight: 500">
+        {{ producto.price | currency }}
+      </p>
+
+      <!-- Valoración -->
+      <div class="form-group mb-3">
+        <label for="score">Valoración</label>
+        <bar-rating
+          [(ngModel)]="producto.score"
+          (ngModelChange)="actualizarValoracion()"
+          [readonly]="false"
+          [max]="5"
+        ></bar-rating>
+      </div>
+
+      <!-- Pie de la tarjeta -->
+      <div class="card-footer">
+        <!-- Botón para agregar al carrito -->
+        <button
+          class="btn btn-primary w-100"
+          (click)="agregarAlCarrito(producto)"
+          *ngIf="!estoyEnCarrito; else mostrarEstoyEnCarrito"
+        >
+          <fa-icon [icon]="faCartShopping"></fa-icon> Agregar al Carrito
+        </button>
+
+        <!-- Vista cuando el producto está en el carrito -->
+        <ng-template #mostrarEstoyEnCarrito>
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-secondary" (click)="decrementarCantidad()">
+              <fa-icon [icon]="faMinus"></fa-icon>
+            </button>
+            <span class="mx-2">Hay {{ cantidad }} en el carrito</span>
+            <button class="btn btn-secondary" (click)="incrementarCantidad()">
+              <fa-icon [icon]="faPlus"></fa-icon>
+            </button>
+          </div>
+
+          <!-- Botón para quitar del carrito -->
+          <button
+            class="btn btn-danger w-100 mt-2"
+            (click)="quitarDelCarrito(producto)"
+          >
+            <fa-icon [icon]="faTrash"></fa-icon> Quitar del Carrito
+          </button>
+        </ng-template>
+      </div>
     </div>
-    <div class="card-footer ">
-      <button class="btn btn-primary w-100" (click)="agregarAlCarrito(producto)"
-        *ngIf="!estoyEnCarrito; else mostrarEstoyEnCarrito">
-        <fa-icon [icon]="faCartShopping"></fa-icon>
-        Agregar al Carrito
-      </button>
-      <ng-template #mostrarEstoyEnCarrito>
-        <button class="btn btn-success w-80" disabled>
-          Hay {{ cantidad }} en el carrito
-        </button>
-        <button class="btn btn-danger w-20" (click)="quitarDelCarrito(producto)">
-          <fa-icon [icon]="faTrash"></fa-icon>
-          Quitar del Carrito
-        </button>
-      </ng-template>
+  </div>
+
+  <!-- Modal de zoom -->
+  <div
+    class="modal fade"
+    id="zoomModal"
+    tabindex="-1"
+    aria-labelledby="zoomModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <img id="zoomImg" class="img-fluid" alt="Imagen ampliada" />
+        </div>
+      </div>
     </div>
   </div>
 </div>

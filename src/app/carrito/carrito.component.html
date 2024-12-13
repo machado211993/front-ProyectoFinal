@@ -1,5 +1,6 @@
-<h2>Estás por llevarte estos productos</h2>
+<h2 class="text-center">Estás por llevarte estos productos</h2>
 
+<!-- Tabla de productos en el carrito, se muestra solo si hay productos -->
 <table class="table table-sm" *ngIf="items?.length; else carritoVacio">
   <thead>
     <tr>
@@ -26,12 +27,14 @@
   </tfoot>
 </table>
 
+<!-- Mensaje cuando el carrito está vacío -->
 <ng-template #carritoVacio>
   <div class="alert alert-info" role="alert">
     No hay productos en el carrito
   </div>
 </ng-template>
 
+<!-- Botón para vaciar el carrito -->
 <button
   class="btn btn-outline-secondary"
   *ngIf="items.length > 0"
@@ -41,6 +44,7 @@
   Vaciar carrito
 </button>
 
+<!-- Botón para ir a pagar -->
 <button
   class="btn btn-outline-primary"
   *ngIf="items.length > 0"

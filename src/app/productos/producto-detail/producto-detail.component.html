@@ -1,41 +1,70 @@
-<a class="btn btn-secondary" [routerLink]="['/productos']">
+<!-- Botón para volver a la lista de productos -->
+<a
+  class="btn btn-secondary"
+  [routerLink]="['/productos']"
+  aria-label="Volver a la lista de productos"
+>
   <fa-icon [icon]="faAngleLeft"></fa-icon>
   <span class="d-none d-md-inline"> Volver</span>
 </a>
 
-<table class="table table" *ngIf="producto">
+<!-- Tabla de detalles del producto -->
+<table class="table table-striped" *ngIf="producto">
   <tbody>
+    <!-- Fila de ID del producto -->
     <tr>
-      <th>#</th>
+      <th scope="row">#</th>
       <td>{{ producto.id }}</td>
     </tr>
+
+    <!-- Fila del nombre del producto -->
     <tr>
-      <th>Nombre</th>
-      <td>{{producto.name}}</td>
+      <th scope="row">Nombre</th>
+      <td>{{ producto.name }}</td>
     </tr>
+
+    <!-- Fila del precio -->
     <tr>
-      <th>Precio</th>
-      <td>{{producto.price | currency}}</td>
-    </tr>
-    <tr>
-      <th>categoryId</th>
-      <td>{{producto.categoryId}}</td>
-    </tr>
-    <tr>
-      <th>Valoración</th>
+      <th scope="row">Precio</th>
       <td>
-        <bar-rating [rate]="producto.score" max="5" readonly="true"></bar-rating>
+        {{
+          producto.price ? (producto.price | currency) : "Precio no disponible"
+        }}
       </td>
     </tr>
+
+    <!-- Fila de la categoría -->
     <tr>
-      <th>Imagen</th>
+      <th scope="row">Categoría</th>
+      <td>{{ producto.categoryId }}</td>
+    </tr>
+
+    <!-- Fila de la valoración -->
+    <tr>
+      <th scope="row">Valoración</th>
       <td>
-        {{ producto.imageUrl }}
-        <img [src]="producto.imageUrl" class="img-fluid" alt="Responsive image"
-          *ngIf="producto.imageUrl; else sinImagen" />
+        <bar-rating
+          [rate]="producto.score"
+          max="5"
+          readonly="true"
+        ></bar-rating>
+      </td>
+    </tr>
+
+    <!-- Fila de la imagen del producto -->
+    <tr>
+      <th scope="row">Imagen</th>
+      <td>
+        <div *ngIf="producto.imageUrl; else sinImagen">
+          <img
+            [src]="producto.imageUrl"
+            class="img-fluid"
+            alt="Imagen del producto"
+          />
+        </div>
         <ng-template #sinImagen>
-          <div class="alert alert-info">
-            No hay imagen
+          <div class="alert alert-info" role="alert">
+            No hay imagen disponible para este producto.
           </div>
         </ng-template>
       </td>

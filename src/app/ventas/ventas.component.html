@@ -1,0 +1,31 @@
+<div *ngIf="isAdmin" class="container mt-4">
+  <h2>Listado de Ventas</h2>
+
+  <!-- Mensaje de carga -->
+  <div *ngIf="loading" class="alert alert-info">Cargando ventas...</div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Tabla de ventas -->
+  <table class="table table-striped" *ngIf="!loading && !error">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Total</th>
+        <th>UserId</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let venta of ventas">
+        <td>{{ venta.id }}</td>
+        <td>{{ venta.fecha | date : "medium" }}</td>
+        <td>{{ venta.total | currency }}</td>
+        <td>{{ venta.userId }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

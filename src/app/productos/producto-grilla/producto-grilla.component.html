@@ -1,8 +1,23 @@
-<div *ngIf="productos && productos.length > 0">
-  <app-producto-search [productos]="productos"
-    (productosEncontrados)="aplicarFiltroProductos($event)"></app-producto-search>
+<div *ngIf="productos && productos.length > 0; else noProductos">
+  <app-producto-search
+    [productos]="productos"
+    (productosEncontrados)="aplicarFiltroProductos($event)"
+  ></app-producto-search>
+
+  <h2 class="mt-4 mb-3 text-center text-muted">Productos disponibles</h2>
+
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-5 g-4">
-    <app-producto-grilla-item [producto]="producto" *ngFor="let producto of filteredProductos">
+    <app-producto-grilla-item
+      [producto]="producto"
+      *ngFor="let producto of filteredProductos"
+    >
     </app-producto-grilla-item>
   </div>
 </div>
+
+<ng-template #noProductos>
+  <div class="text-center mt-5">
+    <h3 class="text-muted">No hay productos disponibles</h3>
+    <p>Vuelve más tarde o revisa tus filtros de búsqueda.</p>
+  </div>
+</ng-template>

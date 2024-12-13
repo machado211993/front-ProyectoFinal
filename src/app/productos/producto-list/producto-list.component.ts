@@ -44,7 +44,7 @@ export class ProductoListComponent implements OnInit {
     private productoService: ProductosService,
     private categoriaService: CategoriasService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const categorias$ = this.categoriaService.listar();
@@ -60,17 +60,8 @@ export class ProductoListComponent implements OnInit {
     );
   }
 
-  onDelete(producto: IProducto): void {
-    if (confirm(`¿Estás seguro de eliminar el producto ${producto.name} ?`)) {
-      console.log('Eliminar producto', producto.id!);
-      this.productoService.eliminar(producto.id!).subscribe((response) => {
-        console.log('Producto eliminado', response);
-        this.productos = this.productos?.filter((p) => p.id !== producto.id!);
-      });
-    } else {
-      console.log('Cancelar eliminación');
-    }
-  }
+
+
 
   aplicarFiltroProductos(productos: Array<IProducto>): void {
     this.filteredProductos = productos;
@@ -80,4 +71,24 @@ export class ProductoListComponent implements OnInit {
     const categoria = this.categorias?.find((c: ICategoria) => c.id === id);
     return categoria ? categoria.name : 'No definida';
   }
+  onDelete(producto: IProducto): void {
+    if (confirm(`¿Estás seguro de eliminar el producto "${producto.name}"?`)) {
+      this.productoService.eliminar(producto.id!).subscribe({
+        next: () => {
+          console.log(`Producto "${producto.name}" eliminado.`);
+          this.filteredProductos = this.filteredProductos?.filter(
+            (p) => p.id !== producto.id
+          );
+        },
+        error: (err) => {
+          console.error('Error al eliminar el producto:', err);
+          alert('No se pudo eliminar el producto. Inténtalo nuevamente.');
+        },
+      });
+    } else {
+      console.log('Eliminación cancelada.');
+    }
+  }
+
+
 }

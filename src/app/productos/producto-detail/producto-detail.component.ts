@@ -22,7 +22,7 @@ export class ProductoDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productoService: ProductosService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const id: string | null = this.route.snapshot.paramMap.get('id');

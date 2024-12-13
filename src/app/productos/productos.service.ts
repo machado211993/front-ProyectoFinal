@@ -30,7 +30,9 @@ export class ProductosService {
     );
   }
 
-  eliminar(id: number): Observable<IProducto> {
-    return this.httpClient.delete<IProducto>(`${this.apiUrl}/Products/${id}`);
+  eliminar(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/Products/${id}`);
   }
+
+
 }
